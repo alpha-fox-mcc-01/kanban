@@ -5,12 +5,8 @@
     <div class="content">
         <h1>KanBun</h1>
         <div class='row'>
-          <TaskBar />
-          <div class="col-md-11">
-            <div class='row'>
-              <Stage @getTasks="getTasks" v-for="(stage, i) in stages" :tasks="tasks" :stage='stage' :key="i" />
-            </div>
-          </div>
+          <OptionsBar />
+          <TasksList :stages="stages" :tasks="tasks"/>
         </div>
     </div>
   </div>
@@ -20,8 +16,8 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import db from '../config/firebase'
-import Stage from '@/components/Stage.vue'
-import TaskBar from '@/components/TaskBar.vue'
+import OptionsBar from '@/components/OptionsBar.vue'
+import TasksList from '@/components/TasksList.vue'
 export default {
   name: 'home',
   data () {
@@ -44,8 +40,8 @@ export default {
     }
   },
   components: {
-    Stage,
-    TaskBar
+    OptionsBar,
+    TasksList
   },
   created () {
     this.getTasks()
