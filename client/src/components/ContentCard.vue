@@ -9,23 +9,74 @@
     <div class="px-6 py-4">
     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">Assignee: {{currentTask.owner}}</span>
   </div>
-  <b-button @click="deleteTask" variant="outline-danger">Delete</b-button>
+  <b-button-group class="mx-1">
+    <b-button>&lsaquo;</b-button>
+    <b-button>Edit</b-button>
+    <b-button @click="deleteTask">Delete</b-button>
+    <b-button>&rsaquo;</b-button>
+  </b-button-group>
   </div>
 </template>
 
 <script>
 import db from '@/config/firebase.js'
+import Swal from 'sweetalert2'
 
 export default {
   props: ['currentTask'],
   methods: {
     deleteTask () {
-      db.collection('tasks').doc(`${this.currentTask.id}`).delete()
-        .then(function() {
-          console.log('Document successfully deleted!')
-      }).catch(function(error) {
-          console.error('Error removing document: ', error)
+      Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this task',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        db.collection('tasks').doc(`${this.currentTask.id}`).delete()
+          .then(function() {
+             Swal.fire(
+              'Deleted!',
+              'Your task has been deleted.',
+              'success'
+            )
+            }).catch(function(error) {
+             Swal.fire(
+              'Failed!',
+              'Unable to delete task',
+              'error'
+            )
+        })
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })
+    },
+    upgradeStatus () {
+      let updatedStatus
+      switch (this.currentTask.status) {
+        case 'backlog':
+          updatedStatus = 'todo'
+          break
+        case 'todo':
+          updatedStatus = 'ongoing'
+          break
+        case 'ongoing':
+          updatedStatus = 'done'
+          break
+      }
+      db.collection('tasks').doc(`${this.currentTask.id}`).set({
+        status: updatedStatus
       })
+        .then (result => {
+
+        })
     }
   }
 }

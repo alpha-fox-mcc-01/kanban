@@ -44,6 +44,7 @@
 
 <script>
 import db from '@/config/firebase.js'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'FormTask',
@@ -58,7 +59,7 @@ export default {
   },
   methods: {
     addTask () {
-      console.log('masuk methods')
+      Swal.fire('Added!','Task has been added', 'success')
       db.collection('tasks').add({
         title: this.title,
         description: this.description,
@@ -66,13 +67,13 @@ export default {
         status: this.status
       })
         .then(() => {
-          console.log('Document successfully written!')
           this.title = ''
           this.description = ''
           this.owner = ''
           this.status = ''
         })
         .catch((err) => {
+          Swal.fire('Unable to add task', 'error')
           console.error('Error writing document: ', err)
         })
     },
