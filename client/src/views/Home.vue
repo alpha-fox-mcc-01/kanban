@@ -3,7 +3,8 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <div class="content">
-        <h1>KanBun</h1>
+        <h2>K A N B U N</h2>
+        <hr>
         <div class='row'>
           <OptionsBar />
           <TasksList :stages="stages" :tasks="tasks"/>
@@ -22,7 +23,7 @@ export default {
   name: 'home',
   data () {
     return {
-      stages: [{ name: 'Back Log', color: 'yellow' }, { name: 'To Do', color: 'red' }, { name: 'In Progress', color: 'blue' }, { name: 'Done', color: 'green' }],
+      stages: [{ name: 'Back Log', color: 'gold' }, { name: 'To Do', color: 'red' }, { name: 'In Progress', color: 'blue' }, { name: 'Done', color: 'green' }],
       tasks: []
     }
   },
@@ -59,22 +60,11 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-.container {
-  height: 80%;
-  width: 100rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-}
 .content {
     border-radius: 25px;
     padding: 20px;
     width: 90%;
-    height: 85%;
+    height: 87%;
     background-color:white;
 
     position:absolute; /*it can be fixed too*/

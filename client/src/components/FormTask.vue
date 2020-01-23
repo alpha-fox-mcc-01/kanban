@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 import db from '../config/firebase'
 export default {
   name: 'formTask',
@@ -44,6 +45,7 @@ export default {
           this.newTask.title = ''
           this.newTask.description = ''
           this.newTask.assignee = ''
+          Swal.fire('Success', 'Task Added!', 'success')
           this.getTasks()
         })
         .catch(err => {
