@@ -10,10 +10,10 @@
     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">Assignee: {{currentTask.owner}}</span>
   </div>
   <b-button-group class="mx-1">
-    <b-button>&lsaquo;</b-button>
+    <b-button @click="downgradeStatus">&lsaquo;</b-button>
     <b-button>Edit</b-button>
     <b-button @click="deleteTask">Delete</b-button>
-    <b-button>&rsaquo;</b-button>
+    <b-button @click="upgradeStatus">&rsaquo;</b-button>
   </b-button-group>
   </div>
 </template>
@@ -27,36 +27,38 @@ export default {
   methods: {
     deleteTask () {
       Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this task',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
-      if (result.value) {
-        db.collection('tasks').doc(`${this.currentTask.id}`).delete()
-          .then(function() {
-             Swal.fire(
-              'Deleted!',
-              'Your task has been deleted.',
-              'success'
-            )
-            }).catch(function(error) {
-             Swal.fire(
-              'Failed!',
-              'Unable to delete task',
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this task',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, keep it'
+      })
+        .then((result) => {
+          if (result.value) {
+            db.collection('tasks').doc(`${this.currentTask.id}`).delete()
+              .then(function () {
+                Swal.fire(
+                  'Deleted!',
+                  'Your task has been deleted.',
+                  'success'
+                )
+              })
+              .catch(function (error) {
+                Swal.fire(
+                  'Failed!',
+                  'Unable to delete task',
+                  'error'
+                )
+              })
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+              'Cancelled',
+              'Your task is safe :)',
               'error'
             )
+          }
         })
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })
     },
     upgradeStatus () {
       let updatedStatus
@@ -71,13 +73,41 @@ export default {
           updatedStatus = 'done'
           break
       }
-      db.collection('tasks').doc(`${this.currentTask.id}`).set({
+      db.collection('tasks').doc(`${this.currentTask.id}`).update({
         status: updatedStatus
       })
-        .then (result => {
-
+        .then(result => {
+          console.log('update status success')
+        })
+        .catch(err => {
+          console.log('update failed', err)
+        })
+    },
+    downgradeStatus () {
+      console.log('masuk downgrade')
+      let backStatus
+      switch (this.currentTask.status) {
+        case 'todo':
+          backStatus = 'backlog'
+          break
+        case 'ongoing':
+          backStatus = 'todo'
+          break
+        case 'done':
+          backStatus = 'ongoing'
+          break
+      }
+      db.collection('tasks').doc(`${this.currentTask.id}`).update({
+        status: backStatus
+      })
+        .then((result) => {
+          console.log('update status success')
+        })
+        .catch((err) => {
+          console.log('update failed', err)
         })
     }
+
   }
 }
 </script>
