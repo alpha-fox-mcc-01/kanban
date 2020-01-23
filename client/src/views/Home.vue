@@ -5,11 +5,7 @@
     <div class="content">
         <h1>KanBun</h1>
         <div class='row'>
-          <div class="col-md-1">
-            <img src='@/assets/settingsIcon.png' width=50 height=50 /><br /><br />
-            <img v-b-modal.modal-1 src='@/assets/newTask.png' width=50 height=50 />
-            <FormTask />
-          </div>
+          <TaskBar />
           <div class="col-md-11">
             <div class='row'>
               <Stage @getTasks="getTasks" v-for="(stage, i) in stages" :tasks="tasks" :stage='stage' :key="i" />
@@ -25,8 +21,7 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 import db from '../config/firebase'
 import Stage from '@/components/Stage.vue'
-import FormTask from '@/components/FormTask.vue'
-
+import TaskBar from '@/components/TaskBar.vue'
 export default {
   name: 'home',
   data () {
@@ -50,7 +45,7 @@ export default {
   },
   components: {
     Stage,
-    FormTask
+    TaskBar
   },
   created () {
     this.getTasks()
@@ -92,22 +87,4 @@ export default {
     max-height:100%;
     /* overflow:auto; */
     }
-
-.col-md-1 {
-  background-color:  white;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-.col-md-11 {
-  min-height: 44.5rem;
-  background-color: rgb(250, 249, 249);
-}
-img {
-  cursor: pointer;
-  transition: 0.3s;
-  opacity: 0.6;
-}
-img:hover {
-  opacity: 1.5;
-}
 </style>
