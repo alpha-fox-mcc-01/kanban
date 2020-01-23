@@ -59,22 +59,21 @@ export default {
   },
   methods: {
     addTask () {
-      Swal.fire('Added!','Task has been added', 'success')
+      Swal.fire('Added!', 'Task has been added', 'success')
       db.collection('tasks').add({
         title: this.title,
         description: this.description,
         owner: this.owner,
         status: this.status
       })
-        .then(() => {
+        .then((result) => {
           this.title = ''
           this.description = ''
           this.owner = ''
           this.status = ''
         })
-        .catch((err) => {
-          Swal.fire('Unable to add task', 'error')
-          console.error('Error writing document: ', err)
+        .catch((error) => {
+          Swal.fire(`Unable to add task : ${error}`, 'error')
         })
     },
     hideModal () {

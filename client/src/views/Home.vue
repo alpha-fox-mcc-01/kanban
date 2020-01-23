@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h3>KanBania</h3>
+    <h3>KANBANIA</h3>
     <div class="flex mb-4">
       <StagesCard v-for="(stage, i) in stages" :key="i" :stage="stage" :tasks="tasks" ></StagesCard>
     </div>
@@ -35,3 +35,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css?family=Varela+Round&display=swap');
+h3 {
+  font-family: 'Varela Round', sans-serif;
+  align-self: center;
+  background: yellow;
+  animation: mymove 3s infinite;
+}
+
+@keyframes mymove {
+  from {background-color: yellow;}
+  to {background-color: paleturquoise;}
+}
+</style>

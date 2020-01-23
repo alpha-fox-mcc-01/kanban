@@ -46,7 +46,7 @@ export default {
               .catch(function (error) {
                 Swal.fire(
                   'Failed!',
-                  'Unable to delete task',
+                  `Unable to delete task ${error}`,
                   'error'
                 )
               })
@@ -76,14 +76,16 @@ export default {
         status: updatedStatus
       })
         .then(result => {
-          console.log('update status success')
         })
-        .catch(err => {
-          console.log('update failed', err)
+        .catch(error => {
+          Swal.fire(
+            'Failed!',
+            `Unable to update task ${error}`,
+            'error'
+          )
         })
     },
     downgradeStatus () {
-      console.log('masuk downgrade')
       let backStatus
       switch (this.currentTask.status) {
         case 'todo':
@@ -100,13 +102,15 @@ export default {
         status: backStatus
       })
         .then((result) => {
-          console.log('update status success')
         })
-        .catch((err) => {
-          console.log('update failed', err)
+        .catch((error) => {
+          Swal.fire(
+            'Failed!',
+            `Unable to update task ${error}`,
+            'error'
+          )
         })
     }
-
   }
 }
 </script>

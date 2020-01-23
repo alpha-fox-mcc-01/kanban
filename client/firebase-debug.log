@@ -1,0 +1,28 @@
+[debug] [2020-01-23T07:37:44.458Z] ----------------------------------------------------------------------
+[debug] [2020-01-23T07:37:44.461Z] Command:       /usr/bin/node /usr/bin/firebase init
+[debug] [2020-01-23T07:37:44.461Z] CLI Version:   7.12.1
+[debug] [2020-01-23T07:37:44.461Z] Platform:      linux
+[debug] [2020-01-23T07:37:44.461Z] Node Version:  v10.16.3
+[debug] [2020-01-23T07:37:44.462Z] Time:          Thu Jan 23 2020 14:37:44 GMT+0700 (Western Indonesia Time)
+[debug] [2020-01-23T07:37:44.462Z] ----------------------------------------------------------------------
+[debug] [2020-01-23T07:37:44.462Z] 
+[debug] [2020-01-23T07:37:44.467Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-23T07:37:44.468Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/vaniairnanda/Documents/H8tasks/kanban/client
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
