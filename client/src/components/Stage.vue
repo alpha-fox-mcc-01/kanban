@@ -3,7 +3,7 @@
     <h3>{{ stage.name }}</h3>
     <hr :style="{ 'border-color': stage.color }">
     <div id='tasks-div'>
-      <Task v-for="task in filteredTasks" :task="task" :stage="stage" :key="task.id"></Task>
+      <Task :isEditing="isEditing" v-for="task in filteredTasks" :task="task" :stage="stage" :key="task.id"></Task>
     </div>
   </div>
 </template>
@@ -14,7 +14,8 @@ export default {
   name: 'stage',
   props: {
     tasks: Array,
-    stage: Object
+    stage: Object,
+    isEditing: Boolean
   },
   components: {
     Task

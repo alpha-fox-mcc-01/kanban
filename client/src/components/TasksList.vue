@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-11">
     <div class='row'>
-      <Stage @getTasks="$emit('getTasks')" v-for="(stage, i) in stages" :tasks="tasks" :stage='stage' :key="i" />
+      <Stage :isEditing="isEditing" @getTasks="$emit('getTasks')" v-for="(stage, i) in stages" :tasks="tasks" :stage='stage' :key="i" />
     </div>
   </div>
 </template>
@@ -14,7 +14,8 @@ export default {
   },
   props: {
     tasks: Array,
-    stages: Array
+    stages: Array,
+    isEditing: Boolean
   }
 }
 </script>

@@ -2,8 +2,7 @@
   <div class="card" style="width: 100%;">
     <div class="card-body">
       <h5 class="card-title"><span :style="{color: stage.color}">&bull;&nbsp;</span>{{ task.title }}</h5>
-      <p><span class='edit' @click="$bvModal.show(`modal-edit-${task.id}`)">Edit</span> | <span class='delete' @click='deleteTask'>Delete</span></p>
-      <b-modal :id="`modal-edit-${task.id}`" title="Add New Task" hide-footer>
+      <b-modal :id="`${task.id}`" title="Add New Task" hide-footer>
         <form @submit.prevent="editTask">
           <div class="form-group">
             <label for="task-title">Title</label>
@@ -18,12 +17,15 @@
             <input type="text" v-model="editedTask.assigned_to" class="form-control" id="exampleInputDescription1" placeholder="Assignee..." required>
           </div>
           <hr>
-          <b-button type="submit" class="mt-3" block @click="$bvModal.hide('modal-edit')">Submit</b-button>
+          <b-button type="submit" class="mt-3" block @click="$bvModal.hide(`${task.id}`)">Submit</b-button>
         </form>
       </b-modal>
       <h6 class="card-subtitle mb-2 text-muted">{{ task.assigned_to }}</h6>
       <p class="card-text">{{ task.description }}</p>
-      <div class='row'>
+      <div v-if='isEditing'>
+        <p><span class='edit' @click="$bvModal.show(`${task.id}`)">Edit</span> | <span class='delete' @click='deleteTask'>Delete</span></p>
+      </div>
+      <div class='row' v-if='!isEditing'>
         <div class='col-md-6'>
           <button type='button' @click='changeStatus(-1)'>&larr;</button>
         </div>
@@ -41,7 +43,8 @@ import db from '../config/firebase.js'
 export default {
   props: {
     task: Object,
-    stage: Object
+    stage: Object,
+    isEditing: Boolean
   },
   data () {
     return {
@@ -79,7 +82,11 @@ export default {
           db.collection('tasks').doc(this.task.id).delete().then(function () {
             Swal.fire('Success', 'Task Deleted!', 'success')
           }).catch(function (error) {
-            console.log('Error Removing document: ', error)
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: `Sorry, something went wrong: ${error}`
+            })
           })
         }
       })
@@ -91,6 +98,7 @@ export default {
 <style>
 .card {
   margin-bottom: 1rem !important;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 4px 0 rgba(0, 0, 0, 0.19);
 }
 .edit {
   cursor: pointer;

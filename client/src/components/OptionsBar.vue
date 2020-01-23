@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-1">
-    <img src='@/assets/settingsIcon.png' width=50 height=50 /><br /><br />
-    <img v-b-modal.modal-1 src='@/assets/newTask.png' width=50 height=50 />
+    <img v-b-tooltip.hover title="Switch to Edit Mode" @click="$emit('changeEditState')" src='@/assets/settingsIcon.png' width=50 height=50 /><br /><br />
+    <img v-b-modal.modal-1 v-b-tooltip.hover title="Add New Task" src='@/assets/newTask.png' width=50 height=50 />
     <FormTask />
   </div>
 </template>
