@@ -57,7 +57,11 @@ export default {
 .home {
   width: 120rem;
   height: 100vh;
-  background-color: rgb(199, 197, 197);
+  /* background-image: url('../assets/darkwallpaper1.jpg'); */
+  background-image: url('../assets/brightwallpaper1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .container {
