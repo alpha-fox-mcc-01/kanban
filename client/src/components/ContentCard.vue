@@ -11,7 +11,6 @@
   </div>
   <b-button-group class="mx-1">
     <b-button @click="downgradeStatus">&lsaquo;</b-button>
-    <b-button>Edit</b-button>
     <b-button @click="deleteTask">Delete</b-button>
     <b-button @click="upgradeStatus">&rsaquo;</b-button>
   </b-button-group>
