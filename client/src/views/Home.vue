@@ -1,11 +1,13 @@
 <template>
-  <div class="home">
-    <ContentBox
-      v-for="(box, i) in boxes"
-      :key="i"
-      :tasks="tasks"
-      :box="box"
-    />
+  <div class="container">
+    <div class="row">
+      <ContentBox
+        v-for="(box, i) in boxes"
+        :key="i"
+        :tasks="tasks"
+        :box="box"
+      />
+    </div>
   </div>
 </template>
 
@@ -45,10 +47,8 @@ export default {
           this.tasks = []
           doc.docs.forEach((document) => {
             const updatedTask = document.data()
-            console.log(updatedTask)
             updatedTask.id = document.id
             this.tasks.push(updatedTask)
-            console.log(this.tasks)
           })
         })
     }

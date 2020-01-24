@@ -1,13 +1,14 @@
 <template>
-  <div class="col-12 col-md-6 col-lg-4 mb-4">
+  <div class="col-md-4 mb-4">
     <div class="container p-3 rounded-top" :class="box.color">
-      <h3 class="mb-0">{{ box.name }}</h3>
+      <h4 class="mb-0">{{ box.name }}</h4>
     </div>
     <div class="container border rounded-bottom">
       <ContentCard
         v-for="task in myTasks"
         :key="task.id"
         :task="task"
+        :box="box"
       />
     </div>
   </div>
