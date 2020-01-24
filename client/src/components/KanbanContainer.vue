@@ -4,15 +4,16 @@
       <b-card-text>
         <!-- <draggable v-model="todos" @start="drag=true" @end="drag=false"> -->
           <div v-for="(todo, i) in filtederTodos(category)" :key="i">
-            <b-card border-variant="info" :header="todo.title" align="center" text-variant="dark" class="my-1" @click="seeDetail(todo)">
+            <b-card border-variant="info" :header="todo.title" align="center" text-variant="dark" class="my-1">
               <b-card-text>
                 <p>Assigned To: {{ todo.assigned }}</p>
                 <p>Priority Scale: {{ todo.priority }}</p>
+                <b-button style="position: absolute; right: 10px; top: 10px; padding: 0 5px" @click="seeDetail(todo)">📖</b-button>
               </b-card-text>
               <div>
-                <b-button v-if="todo.category !== 'backlog'" style="position: absolute; left: 10%" @click="prevCat({id: todo.id, cat: todo.category})">To Left</b-button>
+                <b-button v-if="todo.category !== 'backlog'" style="position: absolute; left: 10%" @click="prevCat({id: todo.id, cat: todo.category})">⬅</b-button>
                 <b-button  @click="deleteTodo(todo.id)">DELETE</b-button>
-                <b-button  v-if="todo.category !== 'done'" style="position: absolute; right: 10%;" @click="nextCat({id: todo.id, cat: todo.category})">To Right</b-button>
+                <b-button  v-if="todo.category !== 'done'" style="position: absolute; right: 10%;" @click="nextCat({id: todo.id, cat: todo.category})">➡</b-button>
               </div>
             </b-card>
             </div>
