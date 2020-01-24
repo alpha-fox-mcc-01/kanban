@@ -1,37 +1,35 @@
 <template>
   <div>
-    <div>
-      <b-button
-        v-b-modal.modal-center
-        class="bg-primary"
-        size="sm">
-        Add Task
-      </b-button>
+    <b-button
+      v-b-modal.modal-center
+      class="bg-primary"
+      size="sm">
+      Add Task
+    </b-button>
 
-      <b-modal
-        id="modal-center"
-        centered
-        hide-footer
-        title="BootstrapVue"
-        ref="my-modal"
-      >
-        <form @submit.prevent="addTask">
-          <div class="form-group">
-            <label for="description">Task Title</label>
-            <input type="text" class="form-control" v-model="title" />
-          </div>
-          <div class="form-group">
-            <label for="description">Task Description</label>
-            <input type="text" class="form-control" v-model="description" />
-          </div>
-          <div class="form-group">
-            <label for="asignee">Task Asignee</label>
-            <input type="text" class="form-control" v-model="asignee" />
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </b-modal>
-    </div>
+    <b-modal
+      id="modal-center"
+      centered
+      hide-footer
+      title="BootstrapVue"
+      ref="my-modal"
+    >
+      <form @submit.prevent="addTask">
+        <div class="form-group">
+          <label for="description">Task Title</label>
+          <input type="text" class="form-control" v-model="title" required/>
+        </div>
+        <div class="form-group">
+          <label for="description">Task Description</label>
+          <input type="text" class="form-control" v-model="description" required/>
+        </div>
+        <div class="form-group">
+          <label for="asignee">Task Asignee</label>
+          <input type="text" class="form-control" v-model="asignee" required/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </b-modal>
   </div>
 </template>
 
@@ -44,7 +42,7 @@ export default {
       title: '',
       description: '',
       asignee: '',
-      status: 'Todo'
+      status: 'Back-Log'
     }
   },
   methods: {

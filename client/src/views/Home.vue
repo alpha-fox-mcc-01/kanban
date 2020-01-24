@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="mx-5">
     <div class="row">
       <ContentBox
         v-for="(box, i) in boxes"
@@ -23,12 +23,16 @@ export default {
       tasks: [],
       boxes: [
         {
-          name: 'Todo',
+          name: 'Back-Log',
           color: 'bg-danger'
         },
         {
-          name: 'Doing',
+          name: 'Todo',
           color: 'bg-warning'
+        },
+        {
+          name: 'Doing',
+          color: 'bg-primary'
         },
         {
           name: 'Done',
