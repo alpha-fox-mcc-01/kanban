@@ -100,5 +100,5 @@ export default {
   max-height:100%;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 4px 0 rgba(0, 0, 0, 0.19);
   /* overflow:auto; */
-  }
+}
 </style>

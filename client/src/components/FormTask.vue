@@ -46,7 +46,6 @@ export default {
           this.newTask.description = ''
           this.newTask.assignee = ''
           Swal.fire('Success', 'Task Added!', 'success')
-          this.getTasks()
         })
         .catch(err => {
           Swal.fire({
