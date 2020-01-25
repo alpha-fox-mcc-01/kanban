@@ -41,8 +41,6 @@ export default {
           this.isLoading = false
           this.asignee = ''
           this.description = ''
-        }).catch(err => {
-          console.log(err)
         })
       }
     }

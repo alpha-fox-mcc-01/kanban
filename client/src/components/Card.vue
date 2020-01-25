@@ -2,7 +2,7 @@
   <div class="card mb-1">
 
     <div class="d-flex justify-content-between align-items-center px-2">
-      <div @click="backward"  id="toLeft"><i class="fa-btn fas fa-chevron-left fa-2x"></i></div>
+      <div v-if="card.stage > 0"  @click="backward"  id="toLeft"><i class="fa-btn fas fa-chevron-left fa-2x"></i></div>
       <div id="content" class="card-body d-flex flex-column justify-content-between">
         <div class="d-flex">
           <small class="mr-auto" v-if="card.created_at">{{card.created_at.toDate().toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'}).replace(/ /g, '-')}}</small>
@@ -14,7 +14,7 @@
         <formEdit v-if="showEditForm" :description="card.description" :asignee="card.asignee" :id="card.id" v-on:toggleEdit="edit"/>
       </div>
 
-      <div @click="onward" id="toRight"><i class="fa-btn fas fa-chevron-right fa-2x"></i></div>
+      <div v-if="card.stage <3" @click="onward" id="toRight"><i class="fa-btn fas fa-chevron-right fa-2x"></i></div>
     </div>
   </div>
 </template>
