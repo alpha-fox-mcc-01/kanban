@@ -20,59 +20,122 @@
 
     <v-container>
       <v-row dense>
-        <v-col cols="12">
-          <v-card
-            color="#385F73"
-            dark
-          >
-            <v-card-title class="headline">Unlimited music now</v-card-title>
-
-            <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever, online and offline.</v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text>Listen Now</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-
         <v-col
-          v-for="(item, i) in items"
-          :key="i"
+          v-for="todo in todoData"
+          :key="todo.id"
           cols="12"
         >
           <v-card
-            :color="item.color"
-            dark
+            :color="color + ' lighten-5'"
+             
           >
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
                 <v-card-title
                   class="headline"
-                  v-text="item.title"
+                  v-text="todo.data.name"
                 ></v-card-title>
 
-                <v-card-subtitle v-text="item.artist"></v-card-subtitle>
+                <v-card-subtitle v-text="todo.data.description"></v-card-subtitle>
               </div>
-
-              <v-avatar
-                class="ma-3"
-                size="125"
-                tile
-              >
-                <v-img :src="item.src"></v-img>
-              </v-avatar>
             </div>
+            <v-card-actions class=" d-flex justify-space-between">
+              <div>
+                <v-btn text v-if="btnBacklog">Backlog</v-btn>
+                <v-btn text v-if="btnTodo">Todo</v-btn>
+                <v-btn text v-if="btnDoing">Doing</v-btn>
+                <v-btn text v-if="btnDone">Done</v-btn>
+              </div>
+              <div class="mr-3" @click.prevent="deleteTodo(todo.id)">
+                <v-icon 
+                  style="cursor:pointer"
+                  
+                >fa-trash-alt</v-icon>
+              </div>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
+      <!-- {{todoData}} -->
     </v-container>
   </v-card>
 </template>
 
 <script>
+import db from '../firebase'
 export default {
   name: 'n-card',
-  props: ['task', 'color']
+  props: ['task', 'color'],
+  data() {
+    return {
+      todoData: '',
+      document: ''
+    }
+  },
+  methods: {
+    deleteTodo (id) {
+      console.log('clicked')
+      console.log(id) 
+      console.log(this.collection)
+      db.collection(this.collection).doc(id).delete()
+        .then(() => {
+          console.log("Document successfully deleted!")
+        })
+        .catch(function(error) {
+          console.error("Error removing document: ", error)
+        })
+    }
+  },
+  computed: {
+    btnTodo () {
+      let button
+      if (this.task === 'Backlog') button = true
+      if (this.task === 'Doing') button = true
+      return button
+    },
+    btnBacklog () {
+      let button
+      if (this.task === 'Todo') button = true
+      return button
+    },
+    btnDoing () {
+      let button
+      if (this.task === 'Done') button = true
+      if (this.task === 'Todo') button = true
+      return button
+    },
+    btnDone () {
+      let button
+      if (this.task === 'Doing') button = true
+      return button
+    },
+    collection () {
+      let collection
+      if (this.task === 'Backlog') collection = 'backlog'
+      if (this.task === 'Todo') collection = 'todo'
+      if (this.task === 'Doing') collection = 'doing'
+      if (this.task === 'Done') collection = 'done'
+      return collection
+    }
+  },
+  created() {
+    let collection
+    if (this.task === 'Backlog') collection = 'backlog'
+    if (this.task === 'Todo') collection = 'todo'
+    if (this.task === 'Doing') collection = 'doing'
+    if (this.task === 'Done') collection = 'done'
+    db.collection(collection)
+      .onSnapshot((querySnapshot) => {
+        const todos = []
+        querySnapshot.forEach(function(doc) {
+          todos.push({
+            data: doc.data(),
+            id: doc.id
+          })
+        })
+        this.todoData = todos
+      })
+  }
 }
 </script>
 

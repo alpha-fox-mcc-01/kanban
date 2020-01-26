@@ -2,6 +2,7 @@
   <v-app>
     <n-bar />
     <v-content>
+      <n-form @addTask="addBacklog"/>
       <v-row no-gutters>
         <v-col
           cols="12"
@@ -37,21 +38,36 @@
 </template>
 
 <script>
+console.log(process.env)
 import nBar from './components/n-bar'
 import nCard from './components/n-card'
+import nForm from './components/n-form'
+import db from './firebase'
 export default {
   name: 'App',
   data() {
     return {
       backlog: 'Backlog',
-      todo: 'To-do',
+      todo: 'Todo',
       doing: 'Doing',
       done: 'Done'
     }
   },
   components: {
     'n-bar': nBar,
-    'n-card': nCard
+    'n-card': nCard,
+    'n-form': nForm
+  },
+  methods: {
+    addBacklog (data) {
+      db.collection("backlog").add(data)
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+    }
   }
 }
 </script>
