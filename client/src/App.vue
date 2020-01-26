@@ -42,7 +42,6 @@ import nBar from './components/n-bar'
 import nCard from './components/n-card'
 import nForm from './components/n-form'
 import db from './firebase'
-console.log(process.env)
 export default {
   name: 'App',
   data () {
@@ -62,7 +61,7 @@ export default {
     addBacklog (data) {
       db.collection('backlog').add(data)
         .then(function (docRef) {
-          console.log('Document written with ID: ', docRef.id)
+          // console.log('Document written with ID: ', docRef.id)
         })
         .catch(function (error) {
           console.error('Error adding document: ', error)

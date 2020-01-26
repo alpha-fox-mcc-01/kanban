@@ -74,12 +74,9 @@ export default {
   },
   methods: {
     deleteTodo (id) {
-      console.log('clicked')
-      console.log(id)
-      console.log(this.collection)
       db.collection(this.collection).doc(id).delete()
         .then(() => {
-          console.log('Document successfully deleted!')
+          // console.log('Document successfully deleted!')
         })
         .catch(function (error) {
           console.error('Error removing document: ', error)
@@ -89,7 +86,7 @@ export default {
       this.deleteTodo(id)
       db.collection(target).add(data)
         .then(function (docRef) {
-          console.log('Document written with ID: ', docRef.id)
+          // console.log('Document written with ID: ', docRef.id)
         })
         .catch(function (error) {
           console.error('Error adding document: ', error)
