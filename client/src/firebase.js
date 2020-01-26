@@ -8,5 +8,6 @@ const config = {
 }
 
 firebase.initializeApp(config)
+const db = firebase.firestore()
 
-module.exports = db = firebase.firestore()
+module.exports = db

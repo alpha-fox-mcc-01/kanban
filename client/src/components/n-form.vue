@@ -36,7 +36,7 @@
 <script>
 export default {
   name: 'nForm',
-  data() {
+  data () {
     return {
       dialog: false,
       task: '',
@@ -56,7 +56,7 @@ export default {
       this.description = ''
       this.owner = ''
     }
-  },
+  }
 }
 </script>
 

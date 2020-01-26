@@ -27,7 +27,7 @@
         >
           <v-card
             :color="color + ' lighten-5'"
-             
+
           >
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
@@ -41,15 +41,15 @@
             </div>
             <v-card-actions class=" d-flex justify-space-between">
               <div>
-                <v-btn text v-if="btnBacklog">Backlog</v-btn>
-                <v-btn text v-if="btnTodo">Todo</v-btn>
-                <v-btn text v-if="btnDoing">Doing</v-btn>
-                <v-btn text v-if="btnDone">Done</v-btn>
+                <v-btn text v-if="btnBacklog" @click.prevent="moveTodo(todo.id, todo.data, 'backlog')">Backlog</v-btn>
+                <v-btn text v-if="btnTodo" @click.prevent="moveTodo(todo.id, todo.data, 'todo')">Todo</v-btn>
+                <v-btn text v-if="btnDoing" @click.prevent="moveTodo(todo.id, todo.data, 'doing')">Doing</v-btn>
+                <v-btn text v-if="btnDone" @click.prevent="moveTodo(todo.id, todo.data, 'done')">Done</v-btn>
               </div>
               <div class="mr-3" @click.prevent="deleteTodo(todo.id)">
-                <v-icon 
+                <v-icon
                   style="cursor:pointer"
-                  
+
                 >fa-trash-alt</v-icon>
               </div>
             </v-card-actions>
@@ -66,7 +66,7 @@ import db from '../firebase'
 export default {
   name: 'n-card',
   props: ['task', 'color'],
-  data() {
+  data () {
     return {
       todoData: '',
       document: ''
@@ -75,14 +75,24 @@ export default {
   methods: {
     deleteTodo (id) {
       console.log('clicked')
-      console.log(id) 
+      console.log(id)
       console.log(this.collection)
       db.collection(this.collection).doc(id).delete()
         .then(() => {
-          console.log("Document successfully deleted!")
+          console.log('Document successfully deleted!')
         })
-        .catch(function(error) {
-          console.error("Error removing document: ", error)
+        .catch(function (error) {
+          console.error('Error removing document: ', error)
+        })
+    },
+    moveTodo (id, data, target) {
+      this.deleteTodo(id)
+      db.collection(target).add(data)
+        .then(function (docRef) {
+          console.log('Document written with ID: ', docRef.id)
+        })
+        .catch(function (error) {
+          console.error('Error adding document: ', error)
         })
     }
   },
@@ -118,7 +128,7 @@ export default {
       return collection
     }
   },
-  created() {
+  created () {
     let collection
     if (this.task === 'Backlog') collection = 'backlog'
     if (this.task === 'Todo') collection = 'todo'
@@ -127,7 +137,7 @@ export default {
     db.collection(collection)
       .onSnapshot((querySnapshot) => {
         const todos = []
-        querySnapshot.forEach(function(doc) {
+        querySnapshot.forEach(function (doc) {
           todos.push({
             data: doc.data(),
             id: doc.id
